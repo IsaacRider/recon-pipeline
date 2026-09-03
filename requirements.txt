@@ -1,0 +1,10 @@
+pandas
+duckdb
+dbt-duckdb
+pytest
+dagster
+dagster-webserver
+streamlit
+# for the Snowflake path (optional):
+# snowflake-connector-python[pandas]
+# dbt-snowflake

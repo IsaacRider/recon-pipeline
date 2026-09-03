@@ -1,0 +1,15 @@
+name: "recon_dbt"
+version: "1.0.0"
+config-version: 2
+
+profile: "recon_dbt"
+
+model-paths: ["models"]
+test-paths: ["tests"]
+
+models:
+  recon_dbt:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

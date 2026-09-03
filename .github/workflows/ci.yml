@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run unit tests (reconciliation logic)
+        run: pytest -v
+
+      - name: Load data into DuckDB
+        run: |
+          python scripts/generate_data.py
+          python scripts/load_to_duckdb.py
+
+      - name: Build dbt models
+        working-directory: recon_dbt
+        run: dbt run --profiles-dir .
+
+      - name: Run dbt data tests
+        working-directory: recon_dbt
+        run: dbt test --profiles-dir .

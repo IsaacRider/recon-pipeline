@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw payment data loaded from the two upstream systems."
+    schema: raw
+    tables:
+      - name: raw_internal_transactions
+        description: "What PayIt's own system recorded (source of truth A)."
+      - name: raw_processor_settlements
+        description: "What the card processor / bank settled (source of truth B)."

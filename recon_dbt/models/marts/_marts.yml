@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: recon_results
+    description: "One row per transaction, classified by reconciliation status."
+    columns:
+      - name: transaction_id
+        description: "Unique payment id present in at least one source."
+        data_tests:
+          - not_null
+          - unique
+      - name: recon_status
+        description: "Reconciliation outcome for this transaction."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values:
+                - MATCHED
+                - MISSING_IN_PROCESSOR
+                - UNEXPECTED_IN_PROCESSOR
+                - AMOUNT_MISMATCH
+
+  - name: recon_summary
+    description: "Counts and dollar exposure per agency and status, for reporting."
+    columns:
+      - name: txn_count
+        data_tests:
+          - not_null

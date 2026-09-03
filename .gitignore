@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+recon.duckdb
+recon_dbt/target/
+recon_dbt/dbt_packages/
+recon_dbt/logs/
+.dbt/
+*.log
+.pytest_cache/
+.env

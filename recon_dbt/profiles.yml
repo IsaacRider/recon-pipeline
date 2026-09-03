@@ -1,0 +1,25 @@
+# dbt looks for this file in ~/.dbt/profiles.yml by default.
+# For this project you can keep it here and run dbt with:
+#   dbt run --profiles-dir .
+#
+# Two targets are defined. `duckdb` is the default (local, zero-signup).
+# Switch to Snowflake with:  dbt run --profiles-dir . --target snowflake
+
+recon_dbt:
+  target: duckdb
+  outputs:
+    duckdb:
+      type: duckdb
+      path: "../recon.duckdb"
+      schema: main
+
+    snowflake:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'ACCOUNTADMIN') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'COMPUTE_WH') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'RECON') }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA', 'ANALYTICS') }}"
+      threads: 4
